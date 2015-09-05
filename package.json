@@ -1,0 +1,27 @@
+{
+  "name": "snowthorn-flightvisualiser",
+  "description": "A test application for #GeoHackDay",
+  "author": "Jo Pearce <jo.pearce@snowthorn.co.uk>",
+  "version": "0.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "homepage": "https://github.com/jdpearce/snowthorn-flightvisualiser",
+    "url": "https://github.com/jdpearce/snowthorn-flightvisualiser.git"
+  },
+  "keywords": [
+    "ArcGIS",
+    "Esri",
+    "GeoHackDay",
+    "what3words"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": ">=0.4.0",
+    "grunt-contrib-clean": "0.5.x",
+    "grunt-contrib-connect": "^0.10.1",
+    "grunt-contrib-copy": "0.4.x",
+    "grunt-contrib-uglify": "^0.9.2",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}

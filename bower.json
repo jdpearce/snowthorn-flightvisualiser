@@ -1,0 +1,25 @@
+{
+  "name": "snowthorn-flightvisualiser",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jdpearce/snowthorn-flightvisualiser",
+  "main": "src/index.html",
+  "moduleType": [
+    "amd"
+  ],
+  "authors": [
+    "jo.pearce@snowthorn.co.uk"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "d3-format": "https://github.com/d3/d3-format.git#~0.3.0",
+    "sylvester": "~0.1.3"
+  }
+}
