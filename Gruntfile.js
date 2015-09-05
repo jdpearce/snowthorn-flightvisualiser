@@ -10,7 +10,7 @@ module.exports = function (grunt) {
 
   grunt.loadTasks('tasks');
 
-  grunt.registerTask('rebuild', ['clean', 'copy']);
+  grunt.registerTask('rebuild', ['clean', 'copy', 'uglify']);
 
   grunt.registerTask('default', ['rebuild', 'connect', 'watch']);
 };

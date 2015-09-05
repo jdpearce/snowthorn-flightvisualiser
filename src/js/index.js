@@ -40,9 +40,10 @@ function (
         }
     });
 
-    var interpolatedPoints = interpolate([location.latitude, location.longitude], 
-                                         [location2.latitude, location2.longitude]);
-
+    var start = [location.latitude, location.longitude];
+    var end = [location2.latitude, location2.longitude];
+    var interpolatedPoints = interpolate(start, end);
+    var bearing = calculateBearing(start, end);
 
 
     // Initialize map and view
@@ -54,7 +55,7 @@ function (
         container: 'forward-map',
         map: map,
         camera: {
-            heading: 0,
+            heading: bearing,
             position: location,
             tilt: 85
         }
@@ -66,25 +67,26 @@ function (
 
     function moveNext() {
         var nextPoint = interpolatedPoints.shift();
-        console.log("Moving to : " + nextPoint);
+        var nextBearing = calculateBearing(nextPoint, interpolatedPoints[0]);
+        console.log("Moving to : " + nextPoint + ", bearing : " + nextBearing);
         var nextCamera = {
-                        heading: 0,
+                        heading: nextBearing,
                         position: new Point({
                               latitude: nextPoint[0],
                               longitude: nextPoint[1],
                               z: 30000,
                               spatialReference: { wkid: 102100 }
                             }),
-                         tilt: 85
+                        tilt: 85
                       };
         viewForward.animateTo(nextCamera);
         if (interpolatedPoints.length > 0)
-          window.setTimeout(moveNext, 2000);
+          window.setTimeout(moveNext, 250);
       };
 
     /// Returns an interpolated set of points
     function interpolate(startPoint, endPoint, numPoints) {
-      if (!numPoints) numPoints = 10;
+      if (!numPoints) numPoints = 1000;
       console.log("start point : " + startPoint);
       console.log("end point : " + endPoint);
       console.log("num points : " + numPoints);
@@ -98,6 +100,19 @@ function (
         tmpArray.push([startPoint[0] + xDiff*i, startPoint[1] + yDiff*i]);
       }
       return tmpArray;
+    }
+
+    function calculateBearing(startPoint, endPoint) {
+      latitude1 = startPoint[0];
+      latitude2 = endPoint[0];
+      longitude1 = startPoint[1];
+      longitude2 = endPoint[1];
+
+      var y = Math.sin(longitude2-longitude1) * Math.cos(latitude2);
+      var x = Math.cos(latitude1)*Math.sin(latitude2) -
+              Math.sin(latitude1)*Math.cos(latitude2)*Math.cos(longitude2-longitude1);
+      var brng = Math.atan2(y, x) * 180.0 / Math.PI;
+      return (brng + 360) % 360;
     }
 });
 
