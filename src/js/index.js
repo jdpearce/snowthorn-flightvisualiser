@@ -21,8 +21,6 @@ function (
   Point,
   webMercatorUtils
   ) {
-    // Enforce strict mode
-
     // Plane flight details
     var location = new Point({
         latitude: 16.28930,
@@ -63,13 +61,13 @@ function (
     });
 
     viewForward.then(function(){
-      moveNext();
+      window.setTimeout(moveNext, 5000);
     });
 
     function moveNext() {
         var nextPoint = interpolatedPoints.shift();
         console.log("Moving to : " + nextPoint);
-        viewForward.camera = {
+        var nextCamera = {
                         heading: 0,
                         position: new Point({
                               latitude: nextPoint[0],
@@ -79,10 +77,9 @@ function (
                             }),
                          tilt: 85
                       };
-
-        console.log(viewForward.camera.position.latitude + ", "  + viewForward.camera.position.longitude);
+        viewForward.animateTo(nextCamera);
         if (interpolatedPoints.length > 0)
-          windows.setTimeout(moveNext, 250);
+          window.setTimeout(moveNext, 2000);
       };
 
     /// Returns an interpolated set of points
