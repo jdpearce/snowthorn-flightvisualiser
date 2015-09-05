@@ -18,8 +18,7 @@ function (
   MapView,
   SceneView,
   Viewpoint,
-  Point,
-  webMercatorUtils
+  Point
   ) {
     // Plane flight details
     var location = new Point({
@@ -102,17 +101,14 @@ function (
       return tmpArray;
     }
 
-    function calculateBearing(startPoint, endPoint) {
-      latitude1 = startPoint[0];
-      latitude2 = endPoint[0];
-      longitude1 = startPoint[1];
-      longitude2 = endPoint[1];
-
-      var y = Math.sin(longitude2-longitude1) * Math.cos(latitude2);
-      var x = Math.cos(latitude1)*Math.sin(latitude2) -
-              Math.sin(latitude1)*Math.cos(latitude2)*Math.cos(longitude2-longitude1);
-      var brng = Math.atan2(y, x) * 180.0 / Math.PI;
-      return (brng + 360) % 360;
+    function calculateBearing(start, end) {
+      var startPoint = new Point({latitude:start[0], longitude:start[1]});
+      var endPoint = new Point({latitude:end[0], longitude:end[1]});
+      var deltaX = endPoint.x - startPoint.x;
+      var deltaY = endPoint.y - startPoint.y;
+      console.log("deltaX : " + deltaX + ", deltaY : " + deltaY);
+      var theta = Math.asin(deltaY/deltaX) * 180/Math.PI;
+      return theta;
     }
 });
 
