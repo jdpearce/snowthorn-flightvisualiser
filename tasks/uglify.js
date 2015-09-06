@@ -10,7 +10,7 @@ module.exports = function(grunt) {
           '<%= dist %>/js/lib.min.js': [
             '<%= bower.directory %>/jquery/dist/jquery.min.js',
             '<%= bower.directory %>/bootstrap/dist/js/bootstrap.min.js',
-            '<%= app %>/js/index.js'
+            '<%= app %>/js/*.js'
           ]
         }
       }
